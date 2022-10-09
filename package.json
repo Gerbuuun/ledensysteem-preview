@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.11"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@formkit/vue": "^1.0.0-beta.11",
+    "@pinia/nuxt": "^0.4.2",
+    "axios": "^0.27.2",
+    "mdi": "^2.2.43",
+    "pinia": "^2.0.22",
+    "sass": "^1.55.0",
+    "vuetify": "next"
+  }
+}
