@@ -3,7 +3,7 @@ import useAlertStore from "~/stores/useAlertStore";
 
 const createClient = () =>
   axios.create({
-    baseURL: useRuntimeConfig().baseURL,
+    baseURL: useRuntimeConfig().PE_API_URL,
     timeout: 5000,
     responseType: 'json',
   });
