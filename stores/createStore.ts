@@ -35,7 +35,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
     actions: {
       async fetchData() {
-        const response = await useHttpClient().apiRequest<T[]>(`${useRuntimeConfig().API_URL}/${params.base}`);
+        const response = await useHttpClient().apiRequest<T[]>(params.base);
         if (response) {
           this.ids = response.map(a => a.id);
           response.forEach(a => this.entities.set(a.id, a));
@@ -55,7 +55,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
       async loadSelected() {
         if (this.loadedIds.includes(this.selectedId)) return;
-        const response = await useHttpClient().apiRequest<T>(`${useRuntimeConfig().API_URL}/${params.single}/${this.selectedId}`);
+        const response = await useHttpClient().apiRequest<T>(`${params.single}/${this.selectedId}`);
         if (response) {
           this.entities.set(response.id, response);
           this.loadedIds.push(response.id);
@@ -64,7 +64,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
       async create(data: T): Promise<boolean> {
         Object.keys(data).forEach(k => { if (data[k] === '') delete data[k] });
-        const response = await useHttpClient().apiRequest<T>(`${useRuntimeConfig().API_URL}/params.base`, { data: data, method: 'POST' });
+        const response = await useHttpClient().apiRequest<T>(params.base, { data: data, method: 'POST' });
         if (response) {
           this.entities.set(response.id, response);
           this.ids.push(response.id);
@@ -80,7 +80,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
       async update(data: T): Promise<boolean> {
         Object.keys(data).forEach(k => { if (data[k] === '') data[k] = null });
-        const response = await useHttpClient().apiRequest<T>(`${useRuntimeConfig().API_URL}/${params.single}/${this.selectedId}`, { data: data,  method: 'PATCH' });
+        const response = await useHttpClient().apiRequest<T>(`${params.single}/${this.selectedId}`, { data: data,  method: 'PATCH' });
         if (response) {
           this.entities.set(this.selectedId, response);
           useAlertStore().createSuccessAlert('Bewerken was succesvol!');
@@ -93,7 +93,7 @@ export const createStore = <T extends { id?: string }>(params: {
       },
 
       async delete(): Promise<boolean> {
-        const response = await useHttpClient().apiRequest<T>(`${useRuntimeConfig().API_URL}/${params.single}/${this.selectedId}`, { method: 'DELETE' });
+        const response = await useHttpClient().apiRequest<T>(`${params.single}/${this.selectedId}`, { method: 'DELETE' });
         if (response) {
           this.selectedId = null;
           this.ids.splice(this.ids.indexOf(response.id), 1);
