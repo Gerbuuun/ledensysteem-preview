@@ -1,4 +1,4 @@
-interface Association {
+type Association = {
   readonly id?: string;
   name?: string;
   description?: string;
@@ -12,7 +12,7 @@ interface Association {
   preferences?: Preference[];
 }
 
-interface AssociationMembership {
+type AssociationMembership = {
   readonly id?: string;
   startDate?: Date;
   stopDate?: Date;
@@ -24,7 +24,7 @@ interface AssociationMembership {
   member?: Member;
 }
 
-interface MemberType {
+type MemberType = {
   readonly id?: string;
   name?: string;
   plural?: string;
