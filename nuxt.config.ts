@@ -13,4 +13,7 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
   },
+  runtimeConfig: {
+    baseURL: process.env.API_URL
+  }
 })
