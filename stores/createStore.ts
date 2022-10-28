@@ -17,6 +17,7 @@ export const createStore = <T extends { id?: string }>(params: {
     loadedIds: string[],
     entities: Map<string, T>;
     selectedId: string | null;
+    isLoaded: boolean;
   }
 
   return defineStore(params.id, {
@@ -25,12 +26,12 @@ export const createStore = <T extends { id?: string }>(params: {
       loadedIds: [],
       entities: new Map<string, T>(),
       selectedId: null,
+      isLoaded: false,
     }),
 
     getters: {
       all: (state): T[] => state.ids.map(id => state.entities.get(id)),
       selected: (state): T | null => (state.selectedId && state.entities.get(state.selectedId)) || null,
-      isLoaded: (state): boolean => state.ids.length > 0,
     },
 
     actions: {
@@ -45,12 +46,14 @@ export const createStore = <T extends { id?: string }>(params: {
       async init() {
         if (this.isLoaded) return;
         await this.fetchData();
+        this.loaded = true;
       },
 
       async reload() {
         this.selectedId = null;
         this.loadedIds = [];
         await this.fetchData();
+        this.loaded = true;
       },
 
       async loadSelected() {
@@ -64,7 +67,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
       async create(data: T): Promise<boolean> {
         Object.keys(data).forEach(k => { if (data[k] === '') delete data[k] });
-        const response = await useHttpClient().apiRequest<T>(params.base, { data: data, method: 'POST' });
+        const response = await useHttpClient().apiRequest<T>(params.base, { body: data, method: 'POST' });
         if (response) {
           this.entities.set(response.id, response);
           this.ids.push(response.id);
@@ -80,7 +83,7 @@ export const createStore = <T extends { id?: string }>(params: {
 
       async update(data: T): Promise<boolean> {
         Object.keys(data).forEach(k => { if (data[k] === '') data[k] = null });
-        const response = await useHttpClient().apiRequest<T>(`${params.single}/${this.selectedId}`, { data: data,  method: 'PATCH' });
+        const response = await useHttpClient().apiRequest<T>(`${params.single}/${this.selectedId}`, { body: data,  method: 'PATCH' });
         if (response) {
           this.entities.set(this.selectedId, response);
           useAlertStore().createSuccessAlert('Bewerken was succesvol!');
