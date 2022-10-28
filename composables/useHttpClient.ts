@@ -1,21 +1,12 @@
-import axios, {AxiosRequestConfig} from "axios";
 import useAlertStore from "~/stores/useAlertStore";
-
-const createClient = () =>
-  axios.create({
-    baseURL: useRuntimeConfig().PE_API_URL,
-    timeout: 5000,
-    responseType: 'json',
-  });
+import {FetchOptions} from "ohmyfetch";
 
 
 export const useHttpClient = () => {
-  const request = createClient();
-
   return {
-    async apiRequest<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    async apiRequest<T>(url: string, config?: FetchOptions): Promise<T> {
       try {
-        const { data } = await request(url, config);
+        const data = await $fetch<T>(url, config);
         return data as T;
       } catch (error) {
         if (error.response) {
