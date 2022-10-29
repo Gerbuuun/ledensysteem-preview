@@ -14,7 +14,7 @@
             Hier kan dan aangegeven worden welk type lid de persoon is en van/tot welke datum deze persoon lid is/was.
           </p>
           <p class="py-6">
-            Klik op een van de verenigingen om meer informatie te zien.
+            Klik op Proteus-Eretes om een uitgebreid voorbeeld te zien.
           </p>
         </div>
       </div>

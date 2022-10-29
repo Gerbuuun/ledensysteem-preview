@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-1 gap-4">
-    <button class="btn gap-2" @click="navigateTo(`/verenigingen/${associations.selectedId}`)"><Icon name="mdi:chevron-left"/>Terug</button>
+    <button class="btn gap-2" @click="navigateTo(`/verenigingen/${associations.selectedId}`)"><Icon name="mdi:chevron-left"/>Terug naar vereniging</button>
     <Card>
       <FormKit
           id="associationForm"
