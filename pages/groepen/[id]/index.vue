@@ -30,10 +30,6 @@
           <td>{{ groups.selected.type.name }}</td>
         </tr>
         <tr>
-          <td>Subtype</td>
-          <td>{{ groups.selected.subtype?.name ?? '-' }}</td>
-        </tr>
-        <tr>
           <td>Vereniging</td>
           <td>{{ groups.selected.association.name }}</td>
         </tr>

@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-1 gap-4">
-    <button class="btn gap-2" @click="navigateTo('/verenigingen')"><Icon name="mdi:chevron-left"/>Terug naar Verenigingen</button>
+    <button class="btn gap-2" @click="navigateTo('/verenigingen')"><Icon name="mdi:chevron-left"/>Terug naar verenigingen</button>
     <Card>
       <h2 class="text-3xl">{{ associations.selected.name }}</h2>
       <table class="table table-normal w-full">
@@ -64,22 +64,6 @@
         <td>{{ entity.plural }}</td>
         <td>{{ entity.description }}</td>
       </EntityTable>
-
-      <div class="divider" />
-
-      <h2 class="card-title">Groep subtypen</h2>
-      <EntityTable
-          :headings="['Naam', 'Groep Type', 'Beschrijving']"
-          :store="groupSubtypes"
-          :entities="groupSubtypes.all.filter(t => t.associationId === associations.selectedId)"
-          :select-link="{ path: `/groepen/subtypen/${groupSubtypes.selectedId}/bewerken` }"
-          :form-link="{ path: '/groepen/subtypen/nieuw', query: { id: associations.selectedId } }"
-          v-slot="{ entity }"
-      >
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.groupType.name }}</td>
-        <td>{{ entity.description }}</td>
-      </EntityTable>
     </Card>
   </div>
 </template>
@@ -90,18 +74,15 @@ import {useRoute, navigateTo} from "#app";
 import {useAssociationStore} from "~/stores/useAssociationStore";
 import {useMemberTypeStore} from "~/stores/useMemberTypeStore";
 import {useGroupTypeStore} from "~/stores/useGroupTypeStore";
-import {useGroupSubtypeStore} from "~/stores/useGroupSubtypeStore";
 
 const associations = useAssociationStore();
 const memberTypes = useMemberTypeStore();
 const groupTypes = useGroupTypeStore();
-const groupSubtypes = useGroupSubtypeStore();
 const dateConverter = useDateConverter();
 
 await associations.init();
 await memberTypes.init();
 await groupTypes.init();
-await groupSubtypes.init();
 
 await associations.select(useRoute().params.id as string);
 

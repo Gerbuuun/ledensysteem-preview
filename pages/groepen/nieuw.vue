@@ -47,23 +47,19 @@
             label="Groep-type"
             name="groupTypeId"
             validation="required"
-            @change="types.select($event.target.value)"
         >
           <option value="" selected disabled>Selecteer een groep-type</option>
           <option v-for="a in types.all.filter(t => t.associationId === associations.selectedId)" :key="a.id" :value="a.id">{{ a.name }}</option>
         </FormKit>
         <FormKit
-            type="select"
-            label="Groep-subtype"
-            name="groupSubtypeId"
-        >
-          <option value="" selected>Geen</option>
-          <option v-for="a in subtypes.all.filter(t => t.associationId === associations.selectedId && t.groupTypeId === types.selectedId)" :key="a.id" :value="a.id">{{ a.name }}</option>
-        </FormKit>
-        <FormKit
             type="submit"
             label="Opslaan"
-            outer-class="$reset col-span-2"
+        />
+        <FormKit
+            type="checkbox"
+            label="Is Actief"
+            name="isActive"
+            :value="false"
         />
       </FormKit>
     </Card>
@@ -75,20 +71,17 @@ import {useDateConverter} from "~/composables/useDateConverter";
 import {navigateTo} from "#app";
 import {useGroupStore} from "~/stores/useGroupStore";
 import {useGroupTypeStore} from "~/stores/useGroupTypeStore";
-import {useGroupSubtypeStore} from "~/stores/useGroupSubtypeStore";
 import {useAssociationStore} from "~/stores/useAssociationStore";
 import {useMemberStore} from "~/stores/useMemberStore";
 
 const groups = useGroupStore();
 const types = useGroupTypeStore();
-const subtypes = useGroupSubtypeStore();
 const associations = useAssociationStore();
 const members = useMemberStore();
 const dateConverter = useDateConverter();
 
 await groups.init();
 await types.init();
-await subtypes.init();
 await associations.init();
 await members.init();
 

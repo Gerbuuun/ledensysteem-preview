@@ -8,13 +8,11 @@ interface Group {
   lastActive?: Date;
   associationId?: string;
   groupTypeId?: string;
-  groupSubtypeId?: string;
   editions?: GroupEdition[];
   members?: GroupMembership[];
   socials?: Social[];
   association?: Association;
   type?: GroupType;
-  subtype?: GroupSubtype;
 }
 
 interface GroupEdition {
@@ -46,18 +44,6 @@ interface GroupType {
   plural?: string;
   description?: string;
   associationId?: string;
-  subtypes?: GroupSubtype[];
   groups?: Group[];
-  association?: Association;
-}
-
-interface GroupSubtype {
-  readonly id?: string;
-  name?: string;
-  description?: string;
-  groupTypeId?: string;
-  associationId?: string;
-  groups?: Group[];
-  groupType?: GroupType;
   association?: Association;
 }

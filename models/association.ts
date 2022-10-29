@@ -6,7 +6,6 @@ type Association = {
   stopDate?: Date;
   groups?: Group[];
   groupTypes?: GroupType[];
-  groupSubtypes?: GroupSubtype[];
   memberTypes?: MemberType[];
   memberships?: AssociationMembership[];
   preferences?: Preference[];

@@ -8,7 +8,7 @@
       <FormKit
           id="groupEditionForm"
           type="form"
-          submit-label="Opslaan"
+          :actions="false"
           @submit="submit"
           form-class="$reset grid grid-cols-2 gap-2"
       >
@@ -31,6 +31,10 @@
             label="Beschrijving"
             name="description"
             :value="editions.selected?.description"
+        />
+        <FormKit
+            type="submit"
+            label="Opslaan"
         />
         <FormKit
             type="checkbox"

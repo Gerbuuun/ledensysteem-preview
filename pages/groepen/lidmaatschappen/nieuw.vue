@@ -15,6 +15,7 @@
             name="groupId"
             validation="required"
             :value="groups.selectedId ?? ''"
+            @change="groups.select($event.target.value)"
         >
           <option value="" selected disabled>Selecteer een groep</option>
           <option v-for="a in groups.all" :key="a.id" :value="a.id">{{ a.name }}</option>

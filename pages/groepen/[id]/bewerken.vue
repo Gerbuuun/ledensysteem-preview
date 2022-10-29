@@ -5,7 +5,7 @@
       <FormKit
           id="groupForm"
           type="form"
-          submit-label="Opslaan"
+          :actions="false"
           @submit="submit"
           form-class="$reset grid grid-cols-2 gap-2"
       >
@@ -21,12 +21,6 @@
             label="Beschrijving"
             name="description"
             :value="groups.selected.description"
-        />
-        <FormKit
-            type="checkbox"
-            label="Is Actief"
-            name="isActive"
-            :value="groups.selected.isActive"
         />
         <FormKit
             type="date"
@@ -58,20 +52,20 @@
             name="groupTypeId"
             validation="required"
             :value="groups.selected.groupTypeId"
-            @change="types.select($event.target.value)"
         >
           <option value="" selected disabled>Selecteer een groep-type</option>
           <option v-for="a in types.all.filter(t => t.associationId === associations.selectedId)" :key="a.id" :value="a.id">{{ a.name }}</option>
         </FormKit>
         <FormKit
-            type="select"
-            label="Groep-subtype"
-            name="groupSubtypeId"
-            :value="groups.selected.groupSubtypeId"
-        >
-          <option value="" selected>Geen</option>
-          <option v-for="a in subtypes.all.filter(t => t.associationId === associations.selectedId && t.groupTypeId === types.selectedId)" :key="a.id" :value="a.id">{{ a.name }}</option>
-        </FormKit>
+            type="submit"
+            label="Opslaan"
+        />
+        <FormKit
+            type="checkbox"
+            label="Is Actief"
+            name="isActive"
+            :value="groups.selected.isActive"
+        />
       </FormKit>
     </Card>
   </div>
@@ -82,20 +76,17 @@ import {useDateConverter} from "~/composables/useDateConverter";
 import {navigateTo, useRoute} from "#app";
 import {useGroupStore} from "~/stores/useGroupStore";
 import {useGroupTypeStore} from "~/stores/useGroupTypeStore";
-import {useGroupSubtypeStore} from "~/stores/useGroupSubtypeStore";
 import {useAssociationStore} from "~/stores/useAssociationStore";
 import {useMemberStore} from "~/stores/useMemberStore";
 
 const groups = useGroupStore();
 const types = useGroupTypeStore();
-const subtypes = useGroupSubtypeStore();
 const associations = useAssociationStore();
 const members = useMemberStore();
 const dateConverter = useDateConverter();
 
 await groups.init();
 await types.init();
-await subtypes.init();
 await associations.init();
 await members.init();
 
